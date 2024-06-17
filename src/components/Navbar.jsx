@@ -1,12 +1,26 @@
 import { Link } from "react-router-dom";
 import icon from "../images/logo.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function Navbar() {
   const [isOpen, setIsopen] = useState(false);
+  const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth > 768);
+
   function handleOpen() {
     setIsopen(!isOpen);
   }
+
+  const handleResize = () => {
+    setIsLargeScreen(window.innerWidth > 1280);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <div className="main-container text-white flex flex-col gap-10 py-10 bg-blue-950 xl:py-20 xl:w-[400px] xl:h-screen">
       <div className="header w-full flex px-5 lg:px-10 items-center justify-between gap-5">
@@ -56,8 +70,8 @@ function Navbar() {
         </div>
       </div>
 
-      {isOpen && (
-        <div className="links flex flex-col items-end px-5 font-Heading gap-5 text-2xl underline">
+      {(isOpen || isLargeScreen) && (
+        <div className="links flex flex-col items-start px-5 font-Heading gap-5 text-2xl underline">
           <div className="link">
             <Link to="/">Home</Link>
           </div>
