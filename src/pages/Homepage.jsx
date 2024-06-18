@@ -1,9 +1,11 @@
+import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 
 function Homepage() {
   return (
     <div>
-      <Navbar />
+      {/* <Navbar /> */}
+      <Footer />
     </div>
   );
 }
