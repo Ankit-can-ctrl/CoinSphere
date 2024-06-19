@@ -20,7 +20,7 @@ function Footer() {
   return (
     <div
       style={{ width: window.innerWidth > 1280 && `${componentWidth}px` }}
-      className="main-container bg-blue-950 xl:absolute right-0 bottom-0 text-white font-Heading py-10 flex flex-col items-center justify-center gap-5"
+      className="main-container bg-blue-950 text-white font-Heading py-10 flex flex-col items-center justify-center gap-5"
     >
       <div className="headings flex flex-col items-center justify-center ">
         <h1 className=" text-3xl font-semibold">CoinSphere</h1>
