@@ -70,7 +70,7 @@ function Coins() {
           Show more
         </Link>
       </div>
-      <div className="coins">
+      <div className="coins flex flex-col p-5 gap-5 lg:grid grid-cols-3">
         {cryptos && cryptos.length > 0 ? (
           cryptos.map((coin) => (
             <Link to={`/Crypto/${coin.uuid}`} key={coin.id}>

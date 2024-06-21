@@ -2,7 +2,7 @@ import millify from "millify";
 /*eslint-disable*/
 function CoinsCard({ coin }) {
   return (
-    <div className="card bg-white">
+    <div className="card bg-white hover:scale-105 transition-all duration-500">
       <div className="heading flex items-center justify-between p-10 text-gray-600">
         <h1 className=" font-Heading text-2xl font-semibold">
           {coin.rank}.{coin.name}
