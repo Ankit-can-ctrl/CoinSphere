@@ -2,24 +2,24 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 function Footer() {
-  const [componentWidth, setComponentWidth] = useState(window.innerWidth - 400);
-  useEffect(() => {
-    const handleResize = () => {
-      setComponentWidth(window.innerWidth - 400);
-    };
+  // const [componentWidth, setComponentWidth] = useState(window.innerWidth - 400);
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     setComponentWidth(window.innerWidth - 400);
+  //   };
 
-    // Add event listener to handle window resize
-    window.addEventListener("resize", handleResize);
+  //   // Add event listener to handle window resize
+  //   window.addEventListener("resize", handleResize);
 
-    // Clean up event listener on component unmount
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  //   // Clean up event listener on component unmount
+  //   return () => {
+  //     window.removeEventListener("resize", handleResize);
+  //   };
+  // }, []);
 
   return (
     <div
-      style={{ width: window.innerWidth > 1280 && `${componentWidth}px` }}
+      // style={{ width: window.innerWidth > 1280 && `${componentWidth}px` }}
       className="main-container bg-blue-950 text-white font-Heading py-10 flex flex-col items-center justify-center gap-5"
     >
       <div className="headings flex flex-col items-center justify-center ">

@@ -1,44 +1,25 @@
 import millify from "millify";
 import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
+
 import { useGetCryptosQuery } from "../services/cryptoApi";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import CoinsCard from "../components/CoinsCard";
 
 function Homepage() {
-  const [componentWidth, setComponentWidth] = useState(window.innerWidth - 400);
-  useEffect(() => {
-    const handleResize = () => {
-      setComponentWidth(window.innerWidth - 400);
-    };
-
-    // Add event listener to handle window resize
-    window.addEventListener("resize", handleResize);
-
-    // Clean up event listener on component unmount
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
   return (
-    <>
-      <div
-        style={{ width: window.innerWidth > 1280 && `${componentWidth}px` }}
-        className=" xl:absolute right-0 "
-      >
-        <CoinData />
-        <Coins />
-        <Footer />
-      </div>
-    </>
+    <div className=" w-full overflow-y-auto h-screen">
+      <GlobalData />
+      <Coins />
+
+      <Footer />
+    </div>
   );
 }
 
 export default Homepage;
 
-function CoinData() {
+function GlobalData() {
   const { data, isFetching } = useGetCryptosQuery();
 
   useEffect(() => {
@@ -48,7 +29,7 @@ function CoinData() {
   const globalStats = data?.data?.stats;
   if (isFetching) return "Loading...";
   return (
-    <div className="Coin-data flex flex-col w-full  gap-16  ">
+    <div className="Coin-data flex flex-col w-full gap-16  ">
       <h1 className=" bg-gray-300 font-Heading text-4xl md:text-5xl font-bold p-10">
         Global Crypto Stats
       </h1>
@@ -69,8 +50,15 @@ function CoinData() {
 }
 
 function Coins() {
+  const { data: cryptoList, isFetching } = useGetCryptosQuery();
+  const [cryptos, setCryptos] = useState(cryptoList?.data?.coins);
+
+  useEffect(() => {
+    console.log(cryptos);
+  }, []);
+
   return (
-    <div>
+    <div className="All-coins bg-gray-300">
       <div className="heading gap-5 font-Heading flex bg-gray-300 items-center justify-between p-10">
         <h1 className=" text-2xl md:text-3xl font-semibold">
           Top 10 Cryptocurrencies in the world
@@ -82,8 +70,18 @@ function Coins() {
           Show more
         </Link>
       </div>
-      <div className="all-coins">
-        <CoinsCard />
+      <div className="coins">
+        {cryptos && cryptos.length > 0 ? (
+          cryptos.map((coin) => (
+            <Link to={`/Crypto/${coin.uuid}`} key={coin.id}>
+              <CoinsCard key={coin.id} coin={coin} />
+            </Link>
+          ))
+        ) : (
+          <div>
+            <h1>DataLoading.....</h1>
+          </div>
+        )}
       </div>
     </div>
   );

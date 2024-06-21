@@ -1,18 +1,18 @@
-function CoinsCard() {
+import millify from "millify";
+/*eslint-disable*/
+function CoinsCard({ coin }) {
   return (
-    <div className="card bg-gray-200 rounded-2xl">
-      <div className="heading flex items-center justify-between p-5">
-        <h1 className=" font-Heading text-xl font-semibold">1.Bitcoin</h1>
-        <img
-          className=" h-[50px]"
-          src="https://cdn.coinranking.com/bOabBYkcX/bitcoin_btc.svg"
-          alt="bitcoin"
-        />
+    <div className="card bg-white">
+      <div className="heading flex items-center justify-between p-10 text-gray-600">
+        <h1 className=" font-Heading text-2xl font-semibold">
+          {coin.rank}.{coin.name}
+        </h1>
+        <img className=" h-[50px]" src={coin.iconUrl} alt="bitcoin" />
       </div>
-      <div className="coin-description flex flex-col px-5 gap-2 text-lg font-normal pb-10">
-        <h2>Price:1</h2>
-        <h2>Market Cap:1</h2>
-        <h2>Daily Change:1</h2>
+      <div className="coin-description flex flex-col gap-2 text-lg px-10 font-medium text-gray-500 pb-10">
+        <h2>Price: {millify(coin.price)}</h2>
+        <h2>Market Cap:{millify(coin.marketCap)}</h2>
+        <h2>Daily Change: {millify(coin.change)}%</h2>
       </div>
     </div>
   );
