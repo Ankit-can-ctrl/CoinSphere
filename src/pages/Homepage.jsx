@@ -1,5 +1,4 @@
 import millify from "millify";
-import Footer from "../components/Footer";
 
 import { useGetCryptosQuery } from "../services/cryptoApi";
 import { useEffect, useState } from "react";
@@ -8,10 +7,9 @@ import CoinsCard from "../components/CoinsCard";
 
 function Homepage() {
   return (
-    <div className=" w-full xl:overflow-y-auto h-screen">
+    <div className=" w-full ">
       <GlobalData />
       <Coins />
-      <Footer />
     </div>
   );
 }

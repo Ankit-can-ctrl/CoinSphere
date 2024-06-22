@@ -3,15 +3,19 @@ import Cryptocurrencies from "./pages/Cryptocurrencies";
 import Homepage from "./pages/Homepage";
 import { Route, Routes } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
+import Footer from "./components/Footer";
 function App() {
   return (
     <div className=" xl:h-screen xl:flex">
       <ScrollToTop />
       <Navbar />
-      <Routes>
-        <Route index path="/" element={<Homepage />} />
-        <Route path="/cryptocurrencies" element={<Cryptocurrencies />} />
-      </Routes>
+      <div className=" right-content flex flex-col xl:overflow-y-auto w-full justify-between bg-gray-400 min-h-screen">
+        <Routes>
+          <Route index path="/" element={<Homepage />} />
+          <Route path="/cryptocurrencies" element={<Cryptocurrencies />} />
+        </Routes>
+        <Footer />
+      </div>
     </div>
   );
 }
