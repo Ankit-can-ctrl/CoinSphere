@@ -10,8 +10,7 @@ function Homepage() {
   return (
     <div className=" w-full xl:overflow-y-auto h-screen">
       <GlobalData />
-      <Coins simplified />
-
+      <Coins />
       <Footer />
     </div>
   );
@@ -49,9 +48,9 @@ function GlobalData() {
   );
 }
 
-function Coins({ simplified }) {
+function Coins() {
   // to display only 10 data items on the home page
-  const count = simplified ? 10 : 100;
+  const count = 10;
 
   const { data: cryptoList, isFetching } = useGetCryptosQuery(count);
   const [cryptos, setCryptos] = useState(cryptoList?.data?.coins);
@@ -66,7 +65,7 @@ function Coins({ simplified }) {
     console.log(cryptos);
   }, [cryptos]);
 
-  if (isFetching) return <h1>lodaing..</h1>;
+  if (isFetching) return <h1>loading..</h1>;
   return (
     <div className="All-coins bg-gray-300">
       <div className="heading gap-5 font-Heading flex bg-gray-300 items-center justify-between p-10">
@@ -74,8 +73,8 @@ function Coins({ simplified }) {
           Top 10 Cryptocurrencies in the world
         </h1>
         <Link
-          className=" underline text-blue-700 text-xl"
-          to="/Cryptocurrencies"
+          className=" md:text-xl border-2 font-semibold hover:scale-105 transition-all duration-500 px-4 py-2 bg-white rounded-xl"
+          to="/cryptocurrencies"
         >
           Show more
         </Link>
@@ -83,7 +82,7 @@ function Coins({ simplified }) {
       <div className="coins flex flex-col p-5 gap-5 lg:grid grid-cols-3">
         {cryptos?.map((coin) => (
           <li className=" list-none" key={coin.uuid}>
-            <Link to={`/Cryptocurrencies/${coin.uuid}`}>
+            <Link to={`/cryptocurrencies/${coin.uuid}`}>
               <CoinsCard key={coin.id} coin={coin} />
             </Link>
           </li>

@@ -85,7 +85,9 @@ function Navbar() {
               <path d="M946.5 505L560.1 118.8l-25.9-25.9a31.5 31.5 0 0 0-44.4 0L77.5 505a63.9 63.9 0 0 0-18.8 46c.4 35.2 29.7 63.3 64.9 63.3h42.5V940h691.8V614.3h43.4c17.1 0 33.2-6.7 45.3-18.8a63.6 63.6 0 0 0 18.7-45.3c0-17-6.7-33.1-18.8-45.2zM568 868H456V664h112v204zm217.9-325.7V868H632V640c0-22.1-17.9-40-40-40H432c-22.1 0-40 17.9-40 40v228H238.1V542.3h-96l370-369.7 23.1 23.1L882 542.3h-96.1z"></path>
             </svg>
             <div className="group">
-              <Link to="/">Home</Link>
+              <Link onClick={() => handleOpen()} to="/">
+                Home
+              </Link>
               <div className=" border-b-4 w-0 group-hover:w-full transition-all duration-500"></div>
             </div>
           </div>
@@ -107,7 +109,9 @@ function Navbar() {
               ></path>
             </svg>
             <div className="group">
-              <Link to="/Cryptocurrencies">Cryptocurrencies</Link>
+              <Link onClick={() => handleOpen()} to="/Cryptocurrencies">
+                Cryptocurrencies
+              </Link>
               <div className=" border-b-4 w-0 group-hover:w-full transition-all duration-500"></div>
             </div>
           </div>
@@ -127,7 +131,9 @@ function Navbar() {
               </g>
             </svg>
             <div className="group">
-              <Link to="/Exchanges">Exchanges</Link>
+              <Link onClick={() => handleOpen()} to="/Exchanges">
+                Exchanges
+              </Link>
               <div className=" border-b-4 w-0 group-hover:w-full transition-all duration-500"></div>
             </div>
           </div>
@@ -145,7 +151,9 @@ function Navbar() {
               <path d="M14 4v-2h-14v11c0 0.552 0.448 1 1 1h13.5c0.828 0 1.5-0.672 1.5-1.5v-8.5h-2zM13 13h-12v-10h12v10zM2 5h10v1h-10zM8 7h4v1h-4zM8 9h4v1h-4zM8 11h3v1h-3zM2 7h5v5h-5z"></path>
             </svg>
             <div className="group">
-              <Link to="/News">News</Link>
+              <Link onClick={() => handleOpen()} to="/News">
+                News
+              </Link>
               <div className=" border-b-4 w-0 group-hover:w-full transition-all duration-500"></div>
             </div>
           </div>
