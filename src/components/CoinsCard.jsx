@@ -10,7 +10,7 @@ function CoinsCard({ coin }) {
         <img className=" h-[50px]" src={coin.iconUrl} alt="bitcoin" />
       </div>
       <div className="coin-description flex flex-col gap-2 text-lg px-10 font-medium text-gray-500 pb-10">
-        <h2>Price: {millify(coin.price)}</h2>
+        <h2>Price: {millify(coin.price)}$</h2>
         <h2>Market Cap:{millify(coin.marketCap)}</h2>
         <h2>Daily Change: {millify(coin.change)}%</h2>
       </div>

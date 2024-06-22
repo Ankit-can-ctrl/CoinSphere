@@ -8,9 +8,9 @@ import CoinsCard from "../components/CoinsCard";
 
 function Homepage() {
   return (
-    <div className=" w-full overflow-y-auto h-screen">
+    <div className=" w-full xl:overflow-y-auto h-screen">
       <GlobalData />
-      <Coins />
+      <Coins simplified />
 
       <Footer />
     </div>
@@ -20,7 +20,7 @@ function Homepage() {
 export default Homepage;
 
 function GlobalData() {
-  const { data, isFetching } = useGetCryptosQuery();
+  const { data, isFetching } = useGetCryptosQuery(10);
 
   useEffect(() => {
     console.log(data);
@@ -49,14 +49,24 @@ function GlobalData() {
   );
 }
 
-function Coins() {
-  const { data: cryptoList, isFetching } = useGetCryptosQuery();
+function Coins({ simplified }) {
+  // to display only 10 data items on the home page
+  const count = simplified ? 10 : 100;
+
+  const { data: cryptoList, isFetching } = useGetCryptosQuery(count);
   const [cryptos, setCryptos] = useState(cryptoList?.data?.coins);
 
   useEffect(() => {
-    console.log(cryptos);
-  }, []);
+    if (cryptoList?.data?.coins) {
+      setCryptos(cryptoList.data.coins);
+    }
+  }, [cryptoList]);
 
+  useEffect(() => {
+    console.log(cryptos);
+  }, [cryptos]);
+
+  if (isFetching) return <h1>lodaing..</h1>;
   return (
     <div className="All-coins bg-gray-300">
       <div className="heading gap-5 font-Heading flex bg-gray-300 items-center justify-between p-10">
@@ -71,17 +81,13 @@ function Coins() {
         </Link>
       </div>
       <div className="coins flex flex-col p-5 gap-5 lg:grid grid-cols-3">
-        {cryptos && cryptos.length > 0 ? (
-          cryptos.map((coin) => (
-            <Link to={`/Crypto/${coin.uuid}`} key={coin.id}>
+        {cryptos?.map((coin) => (
+          <li className=" list-none" key={coin.uuid}>
+            <Link to={`/Cryptocurrencies/${coin.uuid}`}>
               <CoinsCard key={coin.id} coin={coin} />
             </Link>
-          ))
-        ) : (
-          <div>
-            <h1>DataLoading.....</h1>
-          </div>
-        )}
+          </li>
+        ))}
       </div>
     </div>
   );
