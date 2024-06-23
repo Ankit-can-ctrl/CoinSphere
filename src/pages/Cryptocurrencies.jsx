@@ -30,8 +30,8 @@ function Cryptocurrencies() {
   return (
     <div className="">
       <div className="heading px-5 pt-10">
-        <h1 className=" font-Heading text-4xl lg:text-6xl lg:p-6 text-gray-800 bg-gray-500 rounded-md p-3 font-semibold">
-          Explore the Top Cryptocurrencies of Today:
+        <h1 className=" font-Heading text-4xl lg:text-6xl lg:p-6 text-gray-800 text-center bg-gray-500 rounded-md p-3 font-semibold">
+          Explore the Top Cryptocurrencies of Today
         </h1>
       </div>
       <div className="search-bar flex items-center justify-center pt-10 pb-5">

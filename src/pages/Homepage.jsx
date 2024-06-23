@@ -4,12 +4,14 @@ import { useGetCryptosQuery } from "../services/cryptoApi";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import CoinsCard from "../components/CoinsCard";
+import { useGetCryptoNewsQuery } from "../services/cryptoNewsApi";
 
 function Homepage() {
   return (
     <div className=" w-full ">
       <GlobalData />
       <Coins />
+      <CryptoNews />
     </div>
   );
 }
@@ -85,6 +87,48 @@ function Coins() {
             </Link>
           </li>
         ))}
+      </div>
+    </div>
+  );
+}
+
+function CryptoNews() {
+  const { data: cryptoNews } = useGetCryptoNewsQuery();
+
+  const [newsArray, setNewsArray] = useState([]);
+  //puttng api object arrays data in newsArrays
+  useEffect(() => {
+    if (cryptoNews && cryptoNews.data) {
+      setNewsArray(cryptoNews.data);
+      console.log(newsArray);
+    }
+  }, [cryptoNews, newsArray]);
+
+  if (!cryptoNews?.data) return <h1>loading news</h1>;
+  return (
+    <div className=" bg-slate-300">
+      <div className="All-coins bg-gray-300">
+        <div className="heading gap-5 font-Heading flex bg-gray-300 items-center justify-between p-10">
+          <h1 className=" text-2xl md:text-3xl font-semibold">
+            Top 10 Cryptocurrencies in the world
+          </h1>
+          <Link
+            className=" md:text-xl border-2 font-semibold hover:scale-105 transition-all duration-500 px-4 py-2 bg-white rounded-xl"
+            to="/cryptocurrencies"
+          >
+            Show more
+          </Link>
+        </div>
+        <div className="newsCard bg-gray-300">
+          {newsArray.map((topic, index) => (
+            <div key={index} className="newsCard m-10 bg-white">
+              <a className=" m-10" href={topic.url}>
+                <h1>{topic.title}</h1>
+                <img src={topic.thumbnail} alt="crypto news" />
+              </a>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
