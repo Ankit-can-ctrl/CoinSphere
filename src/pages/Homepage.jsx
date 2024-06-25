@@ -101,7 +101,7 @@ function CryptoNews() {
     if (cryptoNews && cryptoNews.data) {
       setNewsArray(cryptoNews.data.slice(0, 10));
     }
-  }, [cryptoNews, newsArray]);
+  }, [cryptoNews]);
 
   if (!cryptoNews?.data) return <h1>loading news</h1>;
   return (

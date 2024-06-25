@@ -14,7 +14,7 @@ function News() {
   useEffect(() => {
     if (cryptoNews && cryptoNews.data) {
       setNewsArray(cryptoNews.data);
-      // console.log(newsArray);
+      console.log(newsArray);
     }
   }, [cryptoNews, newsArray]);
 
@@ -34,7 +34,7 @@ function News() {
                 className=" flex flex-col gap-5 justify-between px-3 py-4"
                 href={topic.url}
               >
-                <h1 className=" font-Heading text-2xl font-semibold text-center">
+                <h1 className=" font-Heading text-2xl font-semibold text-gray-600 text-center">
                   {topic.title}
                 </h1>
                 <img
@@ -42,29 +42,11 @@ function News() {
                   src={topic.thumbnail}
                   alt="crypto news"
                 />
+                <h3>{Date(topic.createdAt)}</h3>
               </a>
             </div>
           ))}
         </div>
-        {/* <div className="page-changer flex items-center gap-5 justify-center my-20">
-          {pageNo > 1 && (
-            <button
-              onClick={() => handleBack()}
-              className="border-2 border-white px-3 py-2 rounded-xl bg-white md:text-2xl md:px-6 font-Heading font-semibold"
-            >
-              Back
-            </button>
-          )}
-          <h1 className=" text-xl font-Heading font-semibold md:text-3xl">
-            Page: {pageNo}
-          </h1>
-          <button
-            onClick={() => handleNext()}
-            className="border-2 border-white px-3 py-2 rounded-xl bg-white md:text-2xl md:px-6 font-Heading font-semibold"
-          >
-            Next
-          </button>
-        </div> */}
       </div>
     </div>
   );
