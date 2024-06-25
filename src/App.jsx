@@ -4,6 +4,7 @@ import Homepage from "./pages/Homepage";
 import { Route, Routes } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
 import Footer from "./components/Footer";
+import News from "./pages/News";
 function App() {
   return (
     <div className=" xl:h-screen xl:flex">
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route index path="/" element={<Homepage />} />
           <Route path="/cryptocurrencies" element={<Cryptocurrencies />} />
+          <Route path="/news" element={<News />} />
         </Routes>
         <Footer />
       </div>
