@@ -29,7 +29,10 @@ function News() {
         </div>
         <div className="newsCard bg-gray-300 flex flex-col gap-5 lg:grid grid-cols-3">
           {newsArray.map((topic, index) => (
-            <div key={index} className="newsCard m-2 rounded-md bg-gray-100">
+            <div
+              key={index}
+              className="newsCard m-2 rounded-md bg-gray-100 overflow-hidden"
+            >
               <a
                 className=" flex flex-col gap-5 justify-between px-3 py-4"
                 href={topic.url}
@@ -38,11 +41,11 @@ function News() {
                   {topic.title}
                 </h1>
                 <img
-                  className=" rounded-md"
+                  className=" rounded-md hover:scale-110 transition-all duration-500"
                   src={topic.thumbnail}
                   alt="crypto news"
                 />
-                <h3>{Date(topic.createdAt)}</h3>
+                <h3>{topic.createdAt}</h3>
               </a>
             </div>
           ))}

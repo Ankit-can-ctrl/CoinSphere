@@ -44,7 +44,7 @@ function Cryptocurrencies() {
       <div className="coins flex flex-col p-5 gap-5 lg:grid grid-cols-3">
         {cryptos?.map((coin) => (
           <li className=" list-none" key={coin.uuid}>
-            <Link to={`/cryptocurrencies/${coin.uuid}`}>
+            <Link to={`/crypto/${coin.uuid}`}>
               <CoinsCard key={coin.id} coin={coin} />
             </Link>
           </li>

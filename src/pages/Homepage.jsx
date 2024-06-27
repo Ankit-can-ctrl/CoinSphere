@@ -18,6 +18,7 @@ function Homepage() {
 
 export default Homepage;
 
+//fetching gloabl data for homepage
 function GlobalData() {
   const { data, isFetching } = useGetCryptosQuery(10);
 
@@ -48,6 +49,7 @@ function GlobalData() {
   );
 }
 
+//coins component for homepage
 function Coins() {
   // to display only 10 data items on the home page
   const count = 10;
@@ -82,7 +84,7 @@ function Coins() {
       <div className="coins flex flex-col p-5 gap-5 lg:grid grid-cols-3">
         {cryptos?.map((coin) => (
           <li className=" list-none" key={coin.uuid}>
-            <Link to={`/cryptocurrencies/${coin.uuid}`}>
+            <Link to={`/crypto/${coin.uuid}`}>
               <CoinsCard key={coin.id} coin={coin} />
             </Link>
           </li>
@@ -92,6 +94,7 @@ function Coins() {
   );
 }
 
+//news componeent for home page
 function CryptoNews() {
   const { data: cryptoNews } = useGetCryptoNewsQuery();
 
@@ -120,7 +123,10 @@ function CryptoNews() {
         </div>
         <div className="newsCard bg-gray-300 flex flex-col gap-5 lg:grid grid-cols-3">
           {newsArray.map((topic, index) => (
-            <div key={index} className="newsCard m-2 rounded-md bg-gray-100">
+            <div
+              key={index}
+              className="newsCard m-2 rounded-md bg-gray-100 overflow-hidden"
+            >
               <a
                 className=" flex flex-col gap-5 justify-between px-3 py-4"
                 href={topic.url}
@@ -129,10 +135,11 @@ function CryptoNews() {
                   {topic.title}
                 </h1>
                 <img
-                  className=" rounded-md"
+                  className=" rounded-md hover:scale-110 transition-all duration-500"
                   src={topic.thumbnail}
                   alt="crypto news"
                 />
+                <h3>{Date(topic.createdAt)}</h3>
               </a>
             </div>
           ))}
