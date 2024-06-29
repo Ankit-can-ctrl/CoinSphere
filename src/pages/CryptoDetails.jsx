@@ -2,21 +2,33 @@ import HTMLReactParser from "html-react-parser/lib/index";
 import { useParams } from "react-router-dom";
 import millify from "millify";
 import { useEffect, useState } from "react";
-import { useGetCryptoDetailsQuery } from "../services/cryptoApi";
+import {
+  useGetCryptoDetailsQuery,
+  useGetCryptoHistoryQuery,
+} from "../services/cryptoApi";
+import LineChart from "../components/LineChart";
 
 function CryptoDetails() {
   // we can use params to get value from the url which was after : in routes
   const { coinId } = useParams();
   const [timePeriod, setTimePeriod] = useState("7d");
   const { data, isFetching } = useGetCryptoDetailsQuery(coinId);
+  const { data: coinHistory } = useGetCryptoHistoryQuery({
+    coinId,
+    timePeriod,
+  });
+
   const time = ["3h", "24h", "7d", "30d", "3m", "1y", "3y", "5y"];
+
   const cryptoDetails = data?.data?.coin;
+
   useEffect(() => {
     console.log(data);
-  }, []);
+  }, [data]);
 
+  if (isFetching) return <div>Loading data....</div>;
   return (
-    <div className="main-details-container">
+    <div className="main-details-container w-full">
       <div className="header flex flex-col items-center justify-center gap-10 py-10 mx-10 font-Heading border-b-2 border-gray-300">
         <div className="flex gap-5 items-center justify-center">
           <h1 className="text-white capitalize text-6xl md:text-8xl font-semibold">
@@ -45,9 +57,20 @@ function CryptoDetails() {
           ))}
         </select>
       </div>
+      <div>
+        <LineChart
+          coinHistory={coinHistory}
+          currentPrice={millify(cryptoDetails.price)}
+          coinName={cryptoDetails.name}
+        />
+      </div>
       <div className="stats lg:grid grid-cols-2">
         <Statistics cryptoDetails={cryptoDetails} />
         <OtherStats cryptoDetails={cryptoDetails} />
+        {/* <CoinDescription cryptoDetails={cryptoDetails} /> */}
+      </div>
+      <div className="coin-description overflow-hidden">
+        <CoinLinks cryptoDetails={cryptoDetails} />
       </div>
     </div>
   );
@@ -55,7 +78,7 @@ function CryptoDetails() {
 
 function Statistics({ cryptoDetails }) {
   return (
-    <div className="coin-data flex flex-col gap-10 bg-white rounded-md m-10 md:mx-10 text-center p-10">
+    <div className="coin-data flex flex-col m-5 md:m-10 gap-10 bg-white rounded-md text-center p-5 md:p-10">
       <h1 className=" font-Heading text-3xl text-gray-600 md:text-4xl font-semibold">
         {cryptoDetails?.name} Value Statistics
       </h1>
@@ -171,7 +194,7 @@ function Statistics({ cryptoDetails }) {
 
 function OtherStats({ cryptoDetails }) {
   return (
-    <div className="coin-data flex flex-col gap-10 bg-white rounded-md m-10 md:mx-10 text-center p-10">
+    <div className="coin-data flex flex-col m-5 md:m-10 gap-10 bg-white rounded-md text-center p-5 md:p-10">
       <h1 className=" font-Heading text-3xl text-gray-600 md:text-4xl font-semibold">
         Other Statistics
       </h1>
@@ -353,4 +376,32 @@ function OtherStats({ cryptoDetails }) {
   );
 }
 
+// function CoinDescription({ cryptoDetails }) {
+//   return (
+//     <div className="main-container p-10 font-Heading text-gray-700">
+//       {HTMLReactParser(cryptoDetails.description)}
+//     </div>
+//   );
+// }
+
+function CoinLinks({ cryptoDetails }) {
+  return (
+    <div className=" m-5 md:m-10 flex flex-col gap-10 bg-white rounded-sm p-5 md:p-10  text-gray-600 font-Heading font-semibold text-center">
+      <div className=" text-2xl md:text-6xl text-gray-600 font-Heading font-semibold text-center">
+        {cryptoDetails?.name} Links:
+      </div>
+      {cryptoDetails?.links.map((item, index) => (
+        <div
+          key={index}
+          className="Links flex flex-col md:flex-row items-center justify-between"
+        >
+          <h1 className="capitalize text-2xl md:text-5xl">{item.name}</h1>
+          <a className="underline text-blue-500" href={item.url}>
+            {item.url}
+          </a>
+        </div>
+      ))}
+    </div>
+  );
+}
 export default CryptoDetails;
