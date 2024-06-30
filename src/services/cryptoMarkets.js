@@ -16,7 +16,11 @@ export const cryptoMarkets = createApi({
     getCryptoGainer: builder.query({
       query: () => createRequest("/api/v1/coins/top-gainers?range=100"),
     }),
+    getCryptoLoser: builder.query({
+      query: () => createRequest("/api/v1/coins/top-losers?range=100"),
+    }),
   }),
 });
 
-export const { useGetCryptoGainerQuery } = cryptoMarkets;
+export const { useGetCryptoGainerQuery, useGetCryptoLoserQuery } =
+  cryptoMarkets;
