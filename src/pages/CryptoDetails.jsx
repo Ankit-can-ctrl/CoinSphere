@@ -22,10 +22,6 @@ function CryptoDetails() {
 
   const cryptoDetails = data?.data?.coin;
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-
   if (isFetching) return <div>Loading data....</div>;
   return (
     <div className="main-details-container w-full">

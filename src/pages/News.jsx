@@ -6,17 +6,13 @@ function News({ limit }) {
 
   const [newsArray, setNewsArray] = useState([]);
 
-  useEffect(() => {
-    console.log(cryptoNews);
-  }, [cryptoNews]);
-
   //puttng api object arrays data in newsArrays
   useEffect(() => {
     if (cryptoNews && cryptoNews.data) {
       setNewsArray(cryptoNews.data.slice(0, limit));
       console.log(newsArray);
     }
-  }, [cryptoNews, newsArray]);
+  }, [cryptoNews]);
 
   if (!cryptoNews?.data) return <h1>loading news</h1>;
   return (

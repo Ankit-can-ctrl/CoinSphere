@@ -6,6 +6,9 @@ import ScrollToTop from "./components/ScrollToTop";
 import Footer from "./components/Footer";
 import News from "./pages/News";
 import CryptoDetails from "./pages/CryptoDetails";
+import Exchanges from "./pages/Exchanges";
+import LoserGainers from "./pages/LoserGainers";
+
 function App() {
   return (
     <div className=" xl:h-screen xl:flex">
@@ -17,6 +20,8 @@ function App() {
           <Route path="/cryptocurrencies" element={<Cryptocurrencies />} />
           <Route path="/news" element={<News limit={200} />} />
           <Route path={`/crypto/:coinId`} element={<CryptoDetails />} />
+          <Route path="/Exchanges" element={<Exchanges />} />
+          <Route path="/Markets" element={<LoserGainers />} />
         </Routes>
         <Footer />
       </div>

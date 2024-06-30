@@ -72,7 +72,7 @@ function Navbar() {
 
       {(isOpen || isLargeScreen) && (
         <div className="links flex  flex-col items-start px-5 lg:px-14 font-Heading gap-5 text-2xl ">
-          <div className="link flex items-center gap-5">
+          <div className="linkHome flex items-center gap-5">
             <svg
               stroke="currentColor"
               fill="currentColor"
@@ -91,7 +91,56 @@ function Navbar() {
               <div className=" border-b-4 w-0 group-hover:w-full transition-all duration-500"></div>
             </div>
           </div>
-          <div className="link flex items-center gap-5">
+          <div className="linkMarkets flex items-center gap-5">
+            <svg
+              className="text-3xl"
+              stroke="currentColor"
+              fill="currentColor"
+              strokeWidth="0"
+              version="1"
+              viewBox="0 0 48 48"
+              enableBackground="new 0 0 48 48"
+              height="1em"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g fill="#37474F">
+                <rect x="23" y="5" width="2" height="36"></rect>
+                <rect
+                  x="20.5"
+                  y="31.4"
+                  transform="matrix(.707 .707 -.707 .707 33.523 -3.921)"
+                  width="2"
+                  height="14.2"
+                ></rect>
+                <rect
+                  x="25.5"
+                  y="31.4"
+                  transform="matrix(-.707 .707 -.707 -.707 72.487 46.995)"
+                  width="2"
+                  height="14.2"
+                ></rect>
+              </g>
+              <rect x="4" y="8" fill="#CFD8DC" width="40" height="28"></rect>
+              <g fill="#607D8B">
+                <rect x="3" y="7" width="42" height="4"></rect>
+                <rect x="3" y="35" width="42" height="2"></rect>
+                <circle cx="31.5" cy="43.5" r="1.5"></circle>
+                <circle cx="16.5" cy="43.5" r="1.5"></circle>
+              </g>
+              <g fill="#C51162">
+                <polygon points="31.9,18.9 26,24.9 20,18.9 11.9,26.9 14.1,29.1 20,23.1 26,29.1 34.1,21.1"></polygon>
+                <polygon points="36,24 29,17 36,17"></polygon>
+              </g>
+            </svg>
+            <div className="group">
+              <Link onClick={() => handleOpen()} to="/Markets">
+                Markets
+              </Link>
+              <div className=" border-b-4 w-0 group-hover:w-full transition-all duration-500"></div>
+            </div>
+          </div>
+          <div className="linCrypto flex items-center gap-5">
             <svg
               stroke="currentColor"
               fill="currentColor"
@@ -115,7 +164,7 @@ function Navbar() {
               <div className=" border-b-4 w-0 group-hover:w-full transition-all duration-500"></div>
             </div>
           </div>
-          <div className="link flex items-center gap-5">
+          <div className="linkExchanges flex items-center gap-5">
             <svg
               stroke="currentColor"
               fill="currentColor"
@@ -137,7 +186,7 @@ function Navbar() {
               <div className=" border-b-4 w-0 group-hover:w-full transition-all duration-500"></div>
             </div>
           </div>
-          <div className="link flex items-center gap-5">
+          <div className="linkNews flex items-center gap-5">
             <svg
               stroke="currentColor"
               fill="currentColor"
