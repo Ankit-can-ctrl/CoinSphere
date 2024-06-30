@@ -1,4 +1,3 @@
-import HTMLReactParser from "html-react-parser/lib/index";
 import { useParams } from "react-router-dom";
 import millify from "millify";
 import { useEffect, useState } from "react";
@@ -11,7 +10,7 @@ import LineChart from "../components/LineChart";
 function CryptoDetails() {
   // we can use params to get value from the url which was after : in routes
   const { coinId } = useParams();
-  const [timePeriod, setTimePeriod] = useState("7d");
+  const [timePeriod, setTimePeriod] = useState("3h");
   const { data, isFetching } = useGetCryptoDetailsQuery(coinId);
   const { data: coinHistory } = useGetCryptoHistoryQuery({
     coinId,
@@ -47,8 +46,8 @@ function CryptoDetails() {
       <div className="filter-coin-data w-full p-10 text-black">
         <select
           className=" min-w-[150px] text-center rounded-lg outline-none border-2 border-gray-500 py-2"
-          defaultValue="7d"
-          onChange={(value) => setTimePeriod(value)}
+          defaultValue={timePeriod}
+          onChange={(event) => setTimePeriod(event.target.value)}
         >
           {time.map((date) => (
             <option key={date} value={date}>
@@ -57,7 +56,7 @@ function CryptoDetails() {
           ))}
         </select>
       </div>
-      <div>
+      <div className=" bg-white mx-10 rounded-md p-5">
         <LineChart
           coinHistory={coinHistory}
           currentPrice={millify(cryptoDetails.price)}
