@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useGetCryptoNewsQuery } from "../services/cryptoNewsApi";
 
-function News() {
+function News({ limit }) {
   const { data: cryptoNews } = useGetCryptoNewsQuery();
 
   const [newsArray, setNewsArray] = useState([]);
@@ -13,7 +13,7 @@ function News() {
   //puttng api object arrays data in newsArrays
   useEffect(() => {
     if (cryptoNews && cryptoNews.data) {
-      setNewsArray(cryptoNews.data);
+      setNewsArray(cryptoNews.data.slice(0, limit));
       console.log(newsArray);
     }
   }, [cryptoNews, newsArray]);

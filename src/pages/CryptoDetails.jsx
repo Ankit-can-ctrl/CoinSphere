@@ -6,6 +6,7 @@ import {
   useGetCryptoHistoryQuery,
 } from "../services/cryptoApi";
 import LineChart from "../components/LineChart";
+import News from "./News";
 
 function CryptoDetails() {
   // we can use params to get value from the url which was after : in routes
@@ -43,9 +44,18 @@ function CryptoDetails() {
           {cryptoDetails?.description}
         </p>
       </div>
-      <div className="filter-coin-data w-full p-10 text-black">
+      <div className="chart-header flex flex-col lg:flex-row items-center justify-center lg:justify-between lg:px-10 text-[#0071bd] pt-10 gap-5 font-Heading texxt">
+        <h1 className="text-4xl lg:text-6xl font-semibold">
+          {cryptoDetails.name} Price Chart
+        </h1>
+        <div className="text-2xl flex flex-col lg:flex-row gap-3 lg:gap-5 font-medium">
+          <h1>Daily Change: {cryptoDetails.change}%</h1>
+          <h1>Current Price : {millify(cryptoDetails?.price)}</h1>
+        </div>
+      </div>
+      <div className="filter-coin-data w-full flex justify-center md:justify-start p-10 text-black font-semibold">
         <select
-          className=" min-w-[150px] text-center rounded-lg outline-none border-2 border-gray-500 py-2"
+          className=" min-w-[150px] text-center rounded-md outline-none  py-2"
           defaultValue={timePeriod}
           onChange={(event) => setTimePeriod(event.target.value)}
         >
@@ -56,21 +66,20 @@ function CryptoDetails() {
           ))}
         </select>
       </div>
-      <div className=" bg-white mx-10 rounded-md p-5">
-        <LineChart
-          coinHistory={coinHistory}
-          currentPrice={millify(cryptoDetails.price)}
-          coinName={cryptoDetails.name}
-        />
-      </div>
+
+      <LineChart
+        coinHistory={coinHistory}
+        currentPrice={millify(cryptoDetails.price)}
+        coinName={cryptoDetails.name}
+      />
+
       <div className="stats lg:grid grid-cols-2">
         <Statistics cryptoDetails={cryptoDetails} />
         <OtherStats cryptoDetails={cryptoDetails} />
         {/* <CoinDescription cryptoDetails={cryptoDetails} /> */}
       </div>
-      <div className="coin-description overflow-hidden">
-        <CoinLinks cryptoDetails={cryptoDetails} />
-      </div>
+      <CoinLinks cryptoDetails={cryptoDetails} />
+      <News limit={20} />
     </div>
   );
 }
@@ -385,22 +394,37 @@ function OtherStats({ cryptoDetails }) {
 
 function CoinLinks({ cryptoDetails }) {
   return (
-    <div className=" m-5 md:m-10 flex flex-col gap-10 bg-white rounded-sm p-5 md:p-10  text-gray-600 font-Heading font-semibold text-center">
-      <div className=" text-2xl md:text-6xl text-gray-600 font-Heading font-semibold text-center">
-        {cryptoDetails?.name} Links:
-      </div>
-      {cryptoDetails?.links.map((item, index) => (
-        <div
-          key={index}
-          className="Links flex flex-col md:flex-row items-center justify-between"
-        >
-          <h1 className="capitalize text-2xl md:text-5xl">{item.name}</h1>
-          <a className="underline text-blue-500" href={item.url}>
-            {item.url}
-          </a>
+    <div className="coin-description overflow-hidden">
+      <div className=" m-5 md:m-10 flex flex-col gap-10 bg-white rounded-sm p-5 md:p-10  text-gray-600 font-Heading font-semibold text-center">
+        <div className=" text-2xl md:text-6xl text-gray-600 font-Heading font-semibold text-center">
+          {cryptoDetails?.name} Links:
         </div>
-      ))}
+        {cryptoDetails?.links.map((item, index) => (
+          <div
+            key={index}
+            className="Links flex flex-col md:flex-row items-center justify-between"
+          >
+            <h1 className="capitalize text-2xl md:text-5xl">{item.name}</h1>
+            <a className="underline text-blue-500" href={item.url}>
+              {item.url}
+            </a>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
+
+// function CoinSupply({ cryptoDetails }) {
+//   return (
+//     <div className="main-container m-5 lg:mx-10 font-Heading p-5 md:p-10 rounded-md bg-white">
+//       <h1 className="header text-3xl text-gray-700 font-semibold">
+//         {cryptoDetails.name} Supply :
+//       </h1>
+//       <div className="Supply-Stats">
+//         <h1 className="marketCap"></h1>
+//       </div>
+//     </div>
+//   );
+// }
 export default CryptoDetails;

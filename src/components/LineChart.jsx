@@ -78,8 +78,10 @@ function LineChart({ coinHistory, currentPrice, coinName }) {
   };
 
   return (
-    <div className=" md:min-h-[800px] flex items-center justify-center">
-      <Line ref={chartRef} data={data} options={options} />
+    <div className="chart bg-white mx-4 md:mx-10 rounded-md p-5">
+      <div className="h-[600px] md:min-h-[800px] flex items-center justify-center">
+        <Line ref={chartRef} data={data} options={options} />
+      </div>
     </div>
   );
 }

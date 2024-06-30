@@ -15,7 +15,7 @@ function App() {
         <Routes>
           <Route index path="/" element={<Homepage />} />
           <Route path="/cryptocurrencies" element={<Cryptocurrencies />} />
-          <Route path="/news" element={<News />} />
+          <Route path="/news" element={<News limit={200} />} />
           <Route path={`/crypto/:coinId`} element={<CryptoDetails />} />
         </Routes>
         <Footer />
