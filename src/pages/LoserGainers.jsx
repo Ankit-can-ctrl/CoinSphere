@@ -117,7 +117,7 @@ function LoserStats({ LoserData }) {
             <a
               href={item.url}
               key={index}
-              className="gainer-Data py-3 md:px-20 hover:scale-105  transition-all duration-500 hover:bg-green-400 rounded-md flex items-center gap-5 justify-between"
+              className="gainer-Data py-3 md:px-20 hover:scale-105  transition-all duration-500 hover:bg-red-400 rounded-md flex items-center gap-5 justify-between"
             >
               <div className="left-head flex items-center  gap-4">
                 <h1 className="hidden md:block">{index + 1}</h1>
