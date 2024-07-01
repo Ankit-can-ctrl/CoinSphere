@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import CoinsCard from "../components/CoinsCard";
 import { useGetCryptoNewsQuery } from "../services/cryptoNewsApi";
+import DataLoader from "../components/DataLoader";
 
 function Homepage() {
   return (
@@ -22,12 +23,18 @@ export default Homepage;
 function GlobalData() {
   const { data, isFetching } = useGetCryptosQuery(10);
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-
   const globalStats = data?.data?.stats;
-  if (isFetching) return "Loading...";
+
+  const [localLoading, setLocalLoading] = useState(true);
+  useEffect(() => {
+    if (!isFetching && data) {
+      const timer = setTimeout(() => {
+        setLocalLoading(false);
+      }, 2000); // Adjust the delay as needed
+      return () => clearTimeout(timer); // Cleanup the timer on component unmount or if the effect runs again
+    }
+  }, [isFetching, data]);
+  if (localLoading) return <DataLoader />;
   return (
     <div className="Coin-data flex flex-col w-full md:gap-16 bg-gray-300 px-5">
       <h1 className=" bg-gray-300 font-Heading text-4xl md:text-6xl font-bold p-10">
@@ -63,11 +70,12 @@ function Coins() {
     }
   }, [cryptoList]);
 
-  useEffect(() => {
-    console.log(cryptos);
-  }, [cryptos]);
-
-  if (isFetching) return <h1>loading..</h1>;
+  if (isFetching)
+    return (
+      <h1>
+        <DataLoader />
+      </h1>
+    );
   return (
     <div className="All-coins bg-gray-300">
       <div className="heading gap-5 font-Heading flex bg-gray-300 items-center justify-between p-10">
@@ -106,7 +114,12 @@ function CryptoNews() {
     }
   }, [cryptoNews]);
 
-  if (!cryptoNews?.data) return <h1>loading news</h1>;
+  if (!cryptoNews?.data)
+    return (
+      <h1>
+        <DataLoader />
+      </h1>
+    );
   return (
     <div className=" bg-slate-300">
       <div className="All-coins bg-gray-300">

@@ -7,6 +7,7 @@ import {
 } from "../services/cryptoApi";
 import LineChart from "../components/LineChart";
 import News from "./News";
+import DataLoader from "../components/DataLoader";
 
 function CryptoDetails() {
   // we can use params to get value from the url which was after : in routes
@@ -22,7 +23,22 @@ function CryptoDetails() {
 
   const cryptoDetails = data?.data?.coin;
 
-  if (isFetching) return <div>Loading data....</div>;
+  const [localLoading, setLocalLoading] = useState(true);
+  useEffect(() => {
+    if (!isFetching && data) {
+      const timer = setTimeout(() => {
+        setLocalLoading(false);
+      }, 2000); // Adjust the delay as needed
+      return () => clearTimeout(timer); // Cleanup the timer on component unmount or if the effect runs again
+    }
+  }, [isFetching, data]);
+
+  if (localLoading)
+    return (
+      <div>
+        <DataLoader />
+      </div>
+    );
   return (
     <div className="main-details-container w-full">
       <div className="header flex flex-col items-center justify-center gap-10 py-10 mx-10 font-Heading border-b-2 border-gray-300">

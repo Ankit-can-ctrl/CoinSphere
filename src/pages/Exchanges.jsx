@@ -1,12 +1,29 @@
 import { Link } from "react-router-dom";
 import { useGetCryptoExchangesQuery } from "../services/cryptoMarkets";
+import DataLoader from "../components/DataLoader";
+import { useEffect, useState } from "react";
 
 function Exchanges() {
   const { data: exchangeList, isFetching } = useGetCryptoExchangesQuery();
 
   const exchangeArray = exchangeList?.data?.items;
 
-  if (isFetching) return <h1>Loading data....</h1>;
+  const [localLoading, setLocalLoading] = useState(true);
+  useEffect(() => {
+    if (!isFetching && exchangeList) {
+      const timer = setTimeout(() => {
+        setLocalLoading(false);
+      }, 2000); // Adjust the delay as needed
+      return () => clearTimeout(timer); // Cleanup the timer on component unmount or if the effect runs again
+    }
+  }, [isFetching, exchangeList]);
+
+  if (localLoading)
+    return (
+      <h1>
+        <DataLoader />
+      </h1>
+    );
   return (
     <div className="main-container">
       <div className="header bg-white m-3 p-5 rounded-md font-Heading text-3xl md:text-6xl font-semibold text-gray-600">
@@ -14,7 +31,7 @@ function Exchanges() {
       </div>
       {exchangeArray.map((item, index) => (
         <div
-          className="m-3 hover:scale-105 transition-all duration-500  hover:bg-green-300 bg-white rounded-md "
+          className="m-3 hover:scale-103 transition-all duration-500  hover:bg-green-300 bg-white rounded-md "
           key={index}
         >
           <div className="exchanges-list  p-3 flex items-center md:px-5 cursor-pointer justify-between">

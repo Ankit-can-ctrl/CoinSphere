@@ -1,19 +1,14 @@
+import { useEffect, useState } from "react";
+import DataLoader from "../components/DataLoader";
 import {
   useGetCryptoGainerQuery,
   useGetCryptoLoserQuery,
 } from "../services/cryptoMarkets";
 
 function LoserGainers() {
-  const { data: Loser } = useGetCryptoLoserQuery();
+  const { data: Loser, isFetchingLoser } = useGetCryptoLoserQuery();
   const { data, isFetching } = useGetCryptoGainerQuery();
-  console.log(data);
-  console.log(Loser);
-  // console.log(LoserData);
 
-  // const textColor =
-  //   item.price_change_24h < 0 ? "text-red-500" : "text-green-500";
-
-  if (isFetching) return <div>Loading data...</div>;
   const LoserData = Loser?.data;
   const GainersData = data?.data;
   const dateUpdate = new Date(data?.status.timestamp);
@@ -27,6 +22,22 @@ function LoserGainers() {
     second: "2-digit",
   };
 
+  const [localLoading, setLocalLoading] = useState(true);
+  useEffect(() => {
+    if (!isFetching && !isFetchingLoser && data) {
+      const timer = setTimeout(() => {
+        setLocalLoading(false);
+      }, 2000); // Adjust the delay as needed
+      return () => clearTimeout(timer); // Cleanup the timer on component unmount or if the effect runs again
+    }
+  }, [isFetching, isFetchingLoser, data]);
+
+  if (localLoading)
+    return (
+      <div>
+        <DataLoader />
+      </div>
+    );
   return (
     <div>
       <div className="header bg-white p-5 m-5 rounded-md font-semibold text-gray-600 font-Heading text-3xl md:text-5xl text-center">
@@ -56,7 +67,7 @@ function Gainers({ GainersData }) {
               <h1>24H Change</h1>
             </div>
           </div>
-          {GainersData.map((item, index) => (
+          {GainersData?.map((item, index) => (
             <a
               href={item.url}
               key={index}
@@ -113,7 +124,7 @@ function LoserStats({ LoserData }) {
               <h1>24H Change</h1>
             </div>
           </div>
-          {LoserData.map((item, index) => (
+          {LoserData?.map((item, index) => (
             <a
               href={item.url}
               key={index}

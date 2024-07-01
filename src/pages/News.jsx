@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useGetCryptoNewsQuery } from "../services/cryptoNewsApi";
+import DataLoader from "../components/DataLoader";
 
 function News({ limit }) {
-  const { data: cryptoNews } = useGetCryptoNewsQuery();
+  const { data: cryptoNews, isFetching } = useGetCryptoNewsQuery();
 
   const [newsArray, setNewsArray] = useState([]);
 
@@ -10,11 +11,24 @@ function News({ limit }) {
   useEffect(() => {
     if (cryptoNews && cryptoNews.data) {
       setNewsArray(cryptoNews.data.slice(0, limit));
-      console.log(newsArray);
     }
   }, [cryptoNews]);
 
-  if (!cryptoNews?.data) return <h1>loading news</h1>;
+  const [localLoading, setLocalLoading] = useState(true);
+  useEffect(() => {
+    if (!isFetching && cryptoNews) {
+      const timer = setTimeout(() => {
+        setLocalLoading(false);
+      }, 2000); // Adjust the delay as needed
+      return () => clearTimeout(timer); // Cleanup the timer on component unmount or if the effect runs again
+    }
+  }, [isFetching, cryptoNews]);
+  if (localLoading)
+    return (
+      <h1>
+        <DataLoader />
+      </h1>
+    );
   return (
     <div className=" bg-slate-300">
       <div className="All-coins bg-gray-300">

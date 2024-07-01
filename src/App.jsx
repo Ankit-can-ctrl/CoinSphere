@@ -8,13 +8,28 @@ import News from "./pages/News";
 import CryptoDetails from "./pages/CryptoDetails";
 import Exchanges from "./pages/Exchanges";
 import LoserGainers from "./pages/LoserGainers";
+import { useEffect, useState } from "react";
+import Loader from "./components/Loader";
 
 function App() {
-  return (
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    const fakeDataFetch = () => {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 3000);
+    };
+
+    fakeDataFetch();
+  }, []);
+
+  return isLoading ? (
+    <Loader />
+  ) : (
     <div className=" xl:h-screen xl:flex">
-      <ScrollToTop />
       <Navbar />
       <div className=" right-content flex flex-col xl:overflow-y-auto w-full justify-between bg-gray-400 min-h-screen">
+        <ScrollToTop />
         <Routes>
           <Route index path="/" element={<Homepage />} />
           <Route path="/cryptocurrencies" element={<Cryptocurrencies />} />

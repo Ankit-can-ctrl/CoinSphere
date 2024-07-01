@@ -10,7 +10,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 // Register the components
 ChartJS.register(
@@ -26,6 +26,8 @@ ChartJS.register(
 function LineChart({ coinHistory, currentPrice, coinName }) {
   const coinPrice = [];
   const coinTimestamp = [];
+
+  const chartRef = useRef(null);
 
   useEffect(() => {
     if (chartRef.current && chartRef.current.chartInstance) {

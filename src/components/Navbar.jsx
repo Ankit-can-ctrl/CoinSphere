@@ -22,7 +22,7 @@ function Navbar() {
   }, []);
 
   return (
-    <div className="main-container  text-white flex flex-col gap-16 xl:gap-20 py-10 bg-blue-950 xl:py-20 xl:min-w-[400px] xl:h-screen">
+    <div className="main-container  text-white flex flex-col gap-16 xl:gap-20 py-6 md:py-10 bg-blue-950 xl:py-20 xl:min-w-[400px] xl:h-screen">
       <div className="header w-full flex px-5 lg:px-10 items-center justify-between gap-5">
         <div className="company flex  items-center gap-5 justify-start">
           <div className="logo">
@@ -70,6 +70,7 @@ function Navbar() {
         </div>
       </div>
 
+      {/*==================== these is bigger screen nav============== */}
       {(isOpen || isLargeScreen) && (
         <div className="links flex  flex-col items-start px-5 lg:px-14 font-Heading gap-5 text-2xl ">
           <div className="linkHome flex items-center gap-5">

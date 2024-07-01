@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import CoinsCard from "../components/CoinsCard";
 import { Link } from "react-router-dom";
 import { useGetCryptosQuery } from "../services/cryptoApi";
+import DataLoader from "../components/DataLoader";
 
 function Cryptocurrencies() {
   const { data: cryptoList, isFetching } = useGetCryptosQuery(200);
@@ -22,15 +23,25 @@ function Cryptocurrencies() {
     }
   }, [cryptoList]);
 
+  const [localLoading, setLocalLoading] = useState(true);
   useEffect(() => {
-    console.log(cryptos);
-  }, [cryptos]);
-
-  if (isFetching) return <h1>Loading data...</h1>;
+    if (!isFetching && cryptoList) {
+      const timer = setTimeout(() => {
+        setLocalLoading(false);
+      }, 2000); // Adjust the delay as needed
+      return () => clearTimeout(timer); // Cleanup the timer on component unmount or if the effect runs again
+    }
+  }, [isFetching, cryptoList]);
+  if (localLoading)
+    return (
+      <h1>
+        <DataLoader />
+      </h1>
+    );
   return (
     <div className="">
       <div className="heading px-5 pt-10">
-        <h1 className=" font-Heading text-4xl lg:text-6xl lg:p-6 text-gray-800 text-center bg-gray-500 rounded-md p-3 font-semibold">
+        <h1 className=" font-Heading text-4xl lg:text-6xl lg:p-6 text-gray-800 text-center bg-white rounded-md p-3 font-semibold">
           Explore the Top Cryptocurrencies of Today
         </h1>
       </div>
